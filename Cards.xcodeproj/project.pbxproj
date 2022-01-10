@@ -10,6 +10,7 @@
 		AB4E8F3D278CE81E000A91DC /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E8F3C278CE81E000A91DC /* Shapes.swift */; };
 		AB4E8F3F278CE82C000A91DC /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E8F3E278CE82C000A91DC /* Cards.swift */; };
 		AB4E8F42278CEA01000A91DC /* BoardGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E8F41278CEA01000A91DC /* BoardGameController.swift */; };
+		AB4E8F45278CEF42000A91DC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E8F44278CEF42000A91DC /* Card.swift */; };
 		ABA7D2E02788F38100A715BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA7D2DF2788F38100A715BB /* AppDelegate.swift */; };
 		ABA7D2E22788F38100A715BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA7D2E12788F38100A715BB /* SceneDelegate.swift */; };
 		ABA7D2E72788F38100A715BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA7D2E52788F38100A715BB /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 		AB4E8F3C278CE81E000A91DC /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
 		AB4E8F3E278CE82C000A91DC /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
 		AB4E8F41278CEA01000A91DC /* BoardGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGameController.swift; sourceTree = "<group>"; };
+		AB4E8F44278CEF42000A91DC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ABA7D2DC2788F38100A715BB /* Cards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA7D2DF2788F38100A715BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA7D2E12788F38100A715BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 		AB4E8F43278CEA24000A91DC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AB4E8F44278CEF42000A91DC /* Card.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB4E8F42278CEA01000A91DC /* BoardGameController.swift in Sources */,
+				AB4E8F45278CEF42000A91DC /* Card.swift in Sources */,
 				AB4E8F3F278CE82C000A91DC /* Cards.swift in Sources */,
 				ABA7D2E02788F38100A715BB /* AppDelegate.swift in Sources */,
 				ABA7D2E22788F38100A715BB /* SceneDelegate.swift in Sources */,
