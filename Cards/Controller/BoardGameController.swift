@@ -18,6 +18,7 @@ class BoardGameController: UIViewController {
         return game
     }
     lazy var startButtonView = getStartButtonView()
+    lazy var boardGameView = getBoardGameView()
     
     // MARK: - View Controller Lifecycle
     
@@ -25,6 +26,7 @@ class BoardGameController: UIViewController {
         super.loadView()
         view.backgroundColor = .white
         view.addSubview(startButtonView)
+        view.addSubview(boardGameView)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +45,26 @@ class BoardGameController: UIViewController {
         button.setTitleColor(.gray, for: .highlighted)
         button.backgroundColor = .systemGreen
         button.layer.cornerRadius = 10
+        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 0.65
         button.addAction(UIAction(title: "", handler: { action in
                             print("Button was pressed")}),
                          for: .touchUpInside)
         return button
     }
-   
+    
+    private func getBoardGameView() -> UIView {
+        let margin: CGFloat = 10
+        let boardView = UIView()
+        boardView.frame.origin.x = margin
+        let window = UIApplication.shared.windows[0]
+        let topPadding = window.safeAreaInsets.top
+        boardView.frame.origin.y = topPadding + startButtonView.frame.height + margin
+        boardView.frame.size.width = UIScreen.main.bounds.width - margin*2
+        let bottomPadding = window.safeAreaInsets.bottom
+        boardView.frame.size.height = UIScreen.main.bounds.height - boardView.frame.origin.y - margin - bottomPadding
+
+        boardView.layer.cornerRadius = 5
+        boardView.backgroundColor = UIColor(red: 0.1, green: 0.9, blue: 0.1, alpha: 0.3)
+        return boardView }
 }
