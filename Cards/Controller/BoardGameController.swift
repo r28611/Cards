@@ -10,15 +10,19 @@ import UIKit
 class BoardGameController: UIViewController {
     
     var cardsPairsCounts = 8
+    var cardViews = [UIView]()
     lazy var game: Game = getNewGame()
-    private func getNewGame() -> Game {
-        let game = Game()
-        game.cardsCount = self.cardsPairsCounts
-        game.generateCards()
-        return game
-    }
     lazy var startButtonView = getStartButtonView()
     lazy var boardGameView = getBoardGameView()
+    private var cardSize: CGSize {
+        CGSize(width: 80, height: 120)
+    }
+    private var cardMaxXCoordinate: Int {
+        Int(boardGameView.frame.width - cardSize.width)
+    }
+    private var cardMaxYCoordinate: Int {
+        Int(boardGameView.frame.height - cardSize.height)
+    }
     
     // MARK: - View Controller Lifecycle
     
@@ -34,6 +38,13 @@ class BoardGameController: UIViewController {
     
     // MARK: - Private methods
     
+    private func getNewGame() -> Game {
+        let game = Game()
+        game.cardsCount = self.cardsPairsCounts
+        game.generateCards()
+        return game
+    }
+
     private func getStartButtonView() -> UIButton {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
         button.center.x = view.center.x
@@ -47,10 +58,17 @@ class BoardGameController: UIViewController {
         button.layer.cornerRadius = 10
         button.layer.shadowRadius = 3
         button.layer.shadowOpacity = 0.65
-        button.addAction(UIAction(title: "", handler: { action in
-                            print("Button was pressed")}),
+        button.addAction(UIAction(title: "",
+                                  handler: { _ in self.startGame(button) }),
                          for: .touchUpInside)
         return button
+    }
+    
+    
+    private func startGame(_ sender: UIButton) {
+        game = getNewGame()
+        let cards = getCardsBy(modelData: game.cards)
+        placeCardsOnBoard(cards)
     }
     
     private func getBoardGameView() -> UIView {
@@ -67,4 +85,46 @@ class BoardGameController: UIViewController {
         boardView.layer.cornerRadius = 5
         boardView.backgroundColor = UIColor(red: 0.1, green: 0.9, blue: 0.1, alpha: 0.3)
         return boardView }
+    
+    private func getCardsBy(modelData: [Card]) -> [UIView] {
+        var cardViews = [UIView]()
+        
+        let cardViewFactory = CardViewFactory()
+        for (index, modelCard) in modelData.enumerated() {
+            
+            let cardOne = cardViewFactory.get(modelCard.type,
+                                              withSize: cardSize,
+                                              andColor: modelCard.color)
+            cardOne.tag = index
+            cardViews.append(cardOne)
+            
+            let cardTwo = cardViewFactory.get(modelCard.type,
+                                              withSize: cardSize,
+                                              andColor: modelCard.color)
+            cardTwo.tag = index
+            cardViews.append(cardTwo)
+        }
+        
+        for card in cardViews {
+            (card as! FlippableView).flipCompletionHandler = { flippedCard in
+                flippedCard.superview?.bringSubviewToFront(flippedCard)
+            }
+        }
+        
+        return cardViews
+    }
+    
+    private func placeCardsOnBoard(_ cards: [UIView]) {
+        for card in cardViews {
+            card.removeFromSuperview()
+        }
+        cardViews = cards
+        
+        for card in cardViews {
+            let randomXCoordinate = Int.random(in: 0...cardMaxXCoordinate)
+            let randomYCoordinate = Int.random(in: 0...cardMaxYCoordinate)
+            card.frame.origin = CGPoint(x: randomXCoordinate, y: randomYCoordinate)
+            boardGameView.addSubview(card)
+        }
+    }
 }
