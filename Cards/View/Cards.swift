@@ -109,6 +109,15 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.frame.origin == startTouchPoint {
             flip()
+        } else if self.frame.origin.x < 0
+                    || self.frame.maxX > window!.frame.width
+                    || self.frame.origin.y < 0
+                    || self.frame.maxY > window!.frame.height
+        {
+            UIView.animate(withDuration: 0.5) {
+                self.frame.origin = self.startTouchPoint
+            }
+            
         }
     }
 }
