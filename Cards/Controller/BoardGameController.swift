@@ -13,6 +13,7 @@ class BoardGameController: UIViewController {
     var cardViews = [UIView]()
     lazy var game: Game = getNewGame()
     lazy var startButtonView = getStartButtonView()
+    lazy var reverseButtonView = getReverseButtonView()
     lazy var boardGameView = getBoardGameView()
     private var flippedCards = [UIView]()
     private var cardSize: CGSize {
@@ -31,6 +32,7 @@ class BoardGameController: UIViewController {
         super.loadView()
         view.backgroundColor = .white
         view.addSubview(startButtonView)
+        view.addSubview(reverseButtonView)
         view.addSubview(boardGameView)
     }
     override func viewDidLoad() {
@@ -65,11 +67,33 @@ class BoardGameController: UIViewController {
         return button
     }
     
+    private func getReverseButtonView() -> UIButton {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        button.frame.origin.x = view.bounds.maxX - 66
+        let window = UIApplication.shared.windows[0]
+        let topPadding = window.safeAreaInsets.top
+        button.frame.origin.y = topPadding
+        button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .systemRed
+        button.layer.cornerRadius = 10
+        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 0.65
+        button.addAction(UIAction(title: "",
+                                  handler: { _ in self.reverseCards(button) }),
+                         for: .touchUpInside)
+        return button
+    }
     
     private func startGame(_ sender: UIButton) {
         game = getNewGame()
         let cards = getCardsBy(modelData: game.cards)
         placeCardsOnBoard(cards)
+        flippedCards = []
+    }
+    
+    private func reverseCards(_ sender: UIButton) {
+        
     }
     
     private func getBoardGameView() -> UIView {
