@@ -20,8 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         guard let window = window else { return }
 
-        let viewController = BoardGameController()
-        window.rootViewController = viewController
+        let viewController = WelcomeController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        window.rootViewController = navigationController
 
         window.makeKeyAndVisible()
     }
