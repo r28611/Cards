@@ -15,6 +15,7 @@ class WelcomeController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.1, green: 0.9, blue: 0.1, alpha: 1)
         view.addSubview(startButtonView)
+        navigationItem.rightBarButtonItem = .init(image: UIImage.init(systemName: "gearshape"), style: .plain, target: self, action: #selector(openSettings(_:)))
     }
     
     private func getStartButtonView() -> UIButton {
@@ -35,4 +36,7 @@ class WelcomeController: UIViewController {
         return button
     }
 
+    @objc private func openSettings(_ sender: UIBarButtonItem) {
+        navigationController?.pushViewController(SettingsController(), animated: true)
+    }
 }
