@@ -11,6 +11,7 @@ protocol FlippableView: UIView {
     var isFlipped: Bool { get set }
     var flipCompletionHandler: ((FlippableView) -> Void)? { get set }
     func flip()
+    func flip(completion: ((Bool) -> Void)?)
 }
 
 class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
@@ -47,16 +48,21 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
             self.addSubview(backSideView)
         }
     }
-    func flip() {
+    
+    func flip(completion: ((Bool) -> Void)?) {
         let fromView = isFlipped ? frontSideView : backSideView
         let toView = isFlipped ? backSideView : frontSideView
         UIView.transition(from: fromView,
                           to: toView,
                           duration: 0.5,
                           options: [.transitionFlipFromTop],
-                          completion: { _ in
-            self.flipCompletionHandler?(self) })
+                          completion: completion)
         isFlipped.toggle()
+    }
+    
+    func flip() {
+        flip(completion: { _ in
+            self.flipCompletionHandler?(self) })
     }
     
     private func setupBorders(){

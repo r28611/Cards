@@ -93,7 +93,22 @@ class BoardGameController: UIViewController {
     }
     
     private func reverseCards(_ sender: UIButton) {
-        
+        if flippedCards.count == 1 {
+            for card in cardViews {
+                if let card = card as? FlippableView,
+                   !card.isFlipped {
+                    card.flip(completion: nil)
+                }
+            }
+            flippedCards = []
+        } else if cardViews.count == cardsPairsCounts * 2 {
+            for card in cardViews {
+                (card as! FlippableView).flip(completion: nil)
+            }
+        }
+        cardViews.forEach({
+            $0.isUserInteractionEnabled.toggle()
+        })
     }
     
     private func getBoardGameView() -> UIView {
